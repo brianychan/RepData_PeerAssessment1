@@ -1,0 +1,56 @@
+---
+title: "Reproducible Research - Peer Assessment 1"
+output: html_document
+---
+
+The goal of this project is to analyze an individual's activity via the data from their fitness tracker.
+
+First, we need to load the data and create a daily version of the data. 
+
+```{r}
+##Load data
+activitydata <- read.csv("~/Documents/Learning/R/reproducibleresearch/rrproj1/activity.csv",header=TRUE, na.strings="NA")
+
+##Create new dataframe with steps aggregated by date
+dailydata <- aggregate(activitydata$steps,by=list(activitydata$date),sum)
+colnames(dailydata) <- c("date","steps")
+```
+
+## What is the mean total number of steps taken per day?
+
+1. Histogram of the total number of steps taken each day
+```{r}
+hist(dailydata$steps,xlab="Steps",main="Steps Histogram")
+```
+
+2. Mean and median total number of steps taken per day
+```{r}
+##Mean
+mean(dailydata$steps,na.rm=TRUE)
+
+##Median
+median(dailydata$steps, na.rm=TRUE)
+```
+
+## What is the average daily pattern?
+
+1. Time-series plot of the 5-minute interval and the average number of steps taken
+
+2. Which 5 minute interval (across all days) contains the maximum number of steps?
+
+## Imputing missing values
+
+1. The total number of missing values in the dataset (rows with NA)
+
+2. Filling in missing values
+
+3. Create new filled in dataset
+
+4. Histogram, mean, and median of new dataset.
+
+## Are there differences in activity patterns between weekdays and weekends?
+
+1. Create a new factor variable in the dataset with two levels - "weekday" / "weekend"
+
+2. Time series panel plot of average steps taken by 5-minute interval (by weekend/weekday)
+
